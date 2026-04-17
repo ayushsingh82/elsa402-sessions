@@ -1,5 +1,5 @@
 {
-  "name": "@elsax402/sessions",
+  "name": "@devshubham/sessions",
   "version": "0.1.0",
   "description": "Sign once, settle many times — session-based x402 payments on Base (EVM). One on-chain ERC20 approve unlocks unlimited micropayments via transferFrom until the cap or expiry is reached. No per-request wallet popup. Powered by USDC on Base Sepolia.",
   "license": "MIT",

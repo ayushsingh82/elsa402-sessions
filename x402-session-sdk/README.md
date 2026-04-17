@@ -1,13 +1,13 @@
-# @elsax402/sessions
+# @devshubham/sessions
 
-[![npm](https://img.shields.io/npm/v/@elsax402/sessions)](https://www.npmjs.com/package/@elsax402/sessions)
+[![npm](https://img.shields.io/npm/v/@devshubham/sessions)](https://www.npmjs.com/package/@devshubham/sessions)
 
 **Sign once, settle many times — session-based x402 payments on Base.**
 
 A tiny TypeScript SDK that turns a single ERC20 `approve` into an unlimited stream of x402 micropayments on Base / Base Sepolia. Pay $1 upfront, then every API call automatically settles $0.10 on-chain via `transferFrom`. No per-call wallet popup. The cap and expiry are enforced by the facilitator (off-chain bookkeeping) plus on-chain ERC20 allowance.
 
 > Classic x402 = 1 request, 1 EIP-3009 signature, 1 settlement.
-> **@elsax402/sessions = 1 ERC20 approve, N settlements.**
+> **@devshubham/sessions = 1 ERC20 approve, N settlements.**
 
 ## Why
 
@@ -21,14 +21,14 @@ If you're building an AI agent, a dapp game, a pay-per-inference API, or anythin
 ## Install
 
 ```bash
-npm install @elsax402/sessions viem
+npm install @devshubham/sessions viem
 # if you're also building the resource-server side:
 npm install @x402/core @x402/next
 ```
 
 Peer deps: `viem ^2.21`, `@x402/core ^2.8.0` (optional — only if you use the server-side scheme plugin).
 
-You also need a running **@elsax402/sessions facilitator** — a small service that verifies sessions and performs the on-chain `transferFrom`.
+You also need a running **@devshubham/sessions facilitator** — a small service that verifies sessions and performs the on-chain `transferFrom`.
 
 **Public facilitator:** `https://elsax402-facilitator-production.up.railway.app`
 
@@ -39,7 +39,7 @@ Use this URL directly in `facilitatorUrl` for testing on Base Sepolia. The refer
 ### 1. Client side (Node)
 
 ```ts
-import { createSession, walletClientFromPrivateKey, USDC_BASE_SEPOLIA } from "@elsax402/sessions";
+import { createSession, walletClientFromPrivateKey, USDC_BASE_SEPOLIA } from "@devshubham/sessions";
 
 const walletClient = await walletClientFromPrivateKey(
   process.env.USER_PRIVATE_KEY as `0x${string}`,
@@ -67,7 +67,7 @@ for (let i = 0; i < 10; i++) {
 
 ```ts
 import { useWalletClient } from "wagmi";
-import { createSession, USDC_BASE_SEPOLIA } from "@elsax402/sessions";
+import { createSession, USDC_BASE_SEPOLIA } from "@devshubham/sessions";
 
 function Demo() {
   const { data: walletClient } = useWalletClient();
@@ -97,7 +97,7 @@ function Demo() {
 ```ts
 import { paymentProxy, x402ResourceServer } from "@x402/next";
 import { HTTPFacilitatorClient } from "@x402/core/server";
-import { SessionEvmScheme, USDC_BASE_SEPOLIA } from "@elsax402/sessions";
+import { SessionEvmScheme, USDC_BASE_SEPOLIA } from "@devshubham/sessions";
 
 const facilitator = new HTTPFacilitatorClient({
   url:
@@ -241,7 +241,7 @@ import {
   readAllowance,                    // read on-chain allowance(owner, spender)
   readBalanceOf,                    // read on-chain balanceOf(account)
   getNowSeconds,
-} from "@elsax402/sessions";
+} from "@devshubham/sessions";
 ```
 
 ## Wire format (session scheme)

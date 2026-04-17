@@ -12,12 +12,12 @@ A monorepo containing a complete session-based x402 stack: a TypeScript SDK, a s
 | What | URL |
 |---|---|
 | Facilitator (Railway, Base Sepolia) | https://elsax402-facilitator-production.up.railway.app |
-| SDK (npm) | [`@elsax402/sessions`](https://www.npmjs.com/package/@elsax402/sessions) |
+| SDK (npm) | [`@devshubham/sessions`](https://www.npmjs.com/package/@devshubham/sessions) |
 
 Point your client at the facilitator out of the box -- no need to self-host for testing.
 
 ```ts
-import { createSession, USDC_BASE_SEPOLIA } from "@elsax402/sessions";
+import { createSession, USDC_BASE_SEPOLIA } from "@devshubham/sessions";
 
 const session = await createSession({
   walletClient,
@@ -36,7 +36,7 @@ await session.fetch("/api/inference"); // settles $0.10 on-chain via transferFro
 
 | Path | Package | Purpose |
 |---|---|---|
-| [`x402-session-sdk/`](./x402-session-sdk) | [`@elsax402/sessions`](https://www.npmjs.com/package/@elsax402/sessions) | TypeScript SDK -- `createSession`, `wrapFetch`, `SessionEvmScheme` |
+| [`x402-session-sdk/`](./x402-session-sdk) | [`@devshubham/sessions`](https://www.npmjs.com/package/@devshubham/sessions) | TypeScript SDK -- `createSession`, `wrapFetch`, `SessionEvmScheme` |
 | [`x402-session-facilitator/`](./x402-session-facilitator) | `elsax402-sessions-facilitator` | Express + SQLite + viem facilitator: `/verify`, `/settle`, `/sessions`, `/supported` |
 | [`x402-session-app/`](./x402-session-app) | `elsax402-app` | Next.js 16 demo: slot machine + AI chat, both x402-protected (wagmi + viem wallet) |
 | [`x402-session-tests/`](./x402-session-tests) | `elsax402-sessions-test` | tsx scripts: `gen` (keypairs), `dry-run` (full e2e), `status` (balances) |
@@ -79,7 +79,7 @@ await session.fetch("/api/inference"); // settles $0.10 on-chain via transferFro
 ## Install the SDK
 
 ```bash
-npm install @elsax402/sessions viem
+npm install @devshubham/sessions viem
 # resource-server side (optional):
 npm install @x402/core @x402/next
 ```
