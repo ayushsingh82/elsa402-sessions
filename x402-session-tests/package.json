@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "dotenv": "^16.4.5",
-    "elsax402-sessions": "file:../x402-session-sdk",
+    "elsa-x402-sessions": "file:../x402-session-sdk",
     "viem": "^2.21.0"
   },
   "devDependencies": {

@@ -13,8 +13,8 @@ import {
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { useAccount, useConnect, useDisconnect, useWalletClient } from "wagmi"
-import { createSession } from "elsax402-sessions"
-import type { SessionHandle } from "elsax402-sessions"
+import { createSession } from "elsa-x402-sessions"
+import type { SessionHandle } from "elsa-x402-sessions"
 
 // ─── Config (browser env) ───────────────────────────────────────────
 const FACILITATOR_URL =

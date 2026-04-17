@@ -1,6 +1,6 @@
 import { paymentProxy, x402ResourceServer } from "@x402/next"
 import { HTTPFacilitatorClient } from "@x402/core/server"
-import { SessionEvmScheme } from "elsax402-sessions"
+import { SessionEvmScheme } from "elsa-x402-sessions"
 import { NextResponse, type NextRequest } from "next/server"
 import { createPaywall } from "./x402/paywall"
 import { evmPaywall } from "./x402/paywall/evm"

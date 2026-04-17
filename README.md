@@ -1,7 +1,7 @@
 # elsax402-sessions
 
-[![npm](https://img.shields.io/npm/v/@devshubham/sessions.svg)](https://www.npmjs.com/package/@devshubham/sessions)
-[![license](https://img.shields.io/npm/l/@devshubham/sessions.svg)](./x402-session-sdk/LICENSE)
+[![npm](https://img.shields.io/npm/v/elsa-x402-sessions.svg)](https://www.npmjs.com/package/elsa-x402-sessions)
+[![license](https://img.shields.io/npm/l/elsa-x402-sessions.svg)](./x402-session-sdk/LICENSE)
 
 **Sign once, settle many times -- session-based x402 payments on Base Sepolia (USDC).**
 
@@ -14,7 +14,7 @@ A complete session-based x402 stack: a TypeScript SDK, a hosted facilitator, a d
 
 | What | URL |
 |---|---|
-| **SDK on npm** | [`@devshubham/sessions`](https://www.npmjs.com/package/@devshubham/sessions) |
+| **SDK on npm** | [`elsa-x402-sessions`](https://www.npmjs.com/package/elsa-x402-sessions) |
 | **Hosted facilitator** | https://elsax402-facilitator-production.up.railway.app |
 | **GitHub** | https://github.com/ayushsingh82/elsa402-sessions |
 
@@ -23,11 +23,11 @@ Both are live on **Base Sepolia (chainId 84532)** with Circle USDC at `0x036CbD5
 ## Try it in 60 seconds
 
 ```bash
-npm install @devshubham/sessions viem
+npm install elsa-x402-sessions viem
 ```
 
 ```ts
-import { createSession, walletClientFromPrivateKey, USDC_BASE_SEPOLIA } from "@devshubham/sessions";
+import { createSession, walletClientFromPrivateKey, USDC_BASE_SEPOLIA } from "elsa-x402-sessions";
 
 const walletClient = await walletClientFromPrivateKey(
   process.env.USER_PRIVATE_KEY as `0x${string}`,
@@ -61,7 +61,7 @@ The user EOA must hold Base Sepolia ETH (gas) and USDC. Faucets:
 ```ts
 import { paymentProxy, x402ResourceServer } from "@x402/next";
 import { HTTPFacilitatorClient } from "@x402/core/server";
-import { SessionEvmScheme, USDC_BASE_SEPOLIA } from "@devshubham/sessions";
+import { SessionEvmScheme, USDC_BASE_SEPOLIA } from "elsa-x402-sessions";
 
 const facilitator = new HTTPFacilitatorClient({
   url: "https://elsax402-facilitator-production.up.railway.app",
@@ -97,7 +97,7 @@ Any request to `/api/inference` without a session payload gets a 402. With a val
 
 | Path | Package | Purpose |
 |---|---|---|
-| [`x402-session-sdk/`](./x402-session-sdk) | [`@devshubham/sessions`](https://www.npmjs.com/package/@devshubham/sessions) | Client SDK (`createSession`, `wrapFetch`) + resource-server scheme plugin (`SessionEvmScheme`) |
+| [`x402-session-sdk/`](./x402-session-sdk) | [`elsa-x402-sessions`](https://www.npmjs.com/package/elsa-x402-sessions) | Client SDK (`createSession`, `wrapFetch`) + resource-server scheme plugin (`SessionEvmScheme`) |
 | [`x402-session-facilitator/`](./x402-session-facilitator) | `elsax402-sessions-facilitator` | Express + SQLite + viem. Endpoints: `/verify`, `/settle`, `/sessions`, `/supported`. Deployed on Railway. |
 | [`x402-session-app/`](./x402-session-app) | `elsax402-app` | Next.js 16 demo: slot machine + AI chat, both x402-protected (wagmi + viem wallet) |
 | [`x402-session-tests/`](./x402-session-tests) | `elsax402-sessions-test` | tsx scripts: `gen` (keypairs), `dry-run` (full e2e), `status` (balances) |

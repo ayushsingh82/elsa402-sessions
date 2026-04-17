@@ -18,8 +18,8 @@ import {
   makePublicClient,
   readBalanceOf,
   walletClientFromPrivateKey,
-} from "elsax402-sessions";
-import type { PaymentPayload, PaymentRequirements } from "elsax402-sessions";
+} from "elsa-x402-sessions";
+import type { PaymentPayload, PaymentRequirements } from "elsa-x402-sessions";
 
 const FACILITATOR_URL = process.env.FACILITATOR_URL ?? "http://localhost:4021";
 const USER_PRIVATE_KEY = required("USER_PRIVATE_KEY") as Hex;

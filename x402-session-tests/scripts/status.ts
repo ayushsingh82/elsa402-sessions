@@ -2,7 +2,7 @@
 
 import "dotenv/config";
 import { formatEther, type Address } from "viem";
-import { makePublicClient, readBalanceOf } from "elsax402-sessions";
+import { makePublicClient, readBalanceOf } from "elsa-x402-sessions";
 
 const FACILITATOR_URL = process.env.FACILITATOR_URL ?? "http://localhost:4021";
 const NETWORK = (process.env.NETWORK ?? "base:sepolia") as "base:sepolia";

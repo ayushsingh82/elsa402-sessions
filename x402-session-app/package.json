@@ -48,7 +48,7 @@
     "clsx": "^2.1.1",
     "cmdk": "1.0.4",
     "date-fns": "4.1.0",
-    "elsax402-sessions": "file:../x402-session-sdk",
+    "elsa-x402-sessions": "file:../x402-session-sdk",
     "embla-carousel-react": "8.5.1",
     "framer-motion": "12.23.12",
     "geist": "^1.3.1",
