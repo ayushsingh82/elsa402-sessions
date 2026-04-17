@@ -1,14 +1,7 @@
 # Nixpacks config for Railway deployment.
-# better-sqlite3 needs node-gyp + python + a C++ toolchain at build time.
+# better-sqlite3 needs python + a C++ toolchain at native build time.
+# We only specify the extra system packages — install/build phases use
+# Nixpacks' Node defaults (npm ci → npm run build).
 
 [phases.setup]
 nixPkgs = ["nodejs_22", "python3", "gcc", "gnumake"]
-
-[phases.install]
-cmds = ["npm ci"]
-
-[phases.build]
-cmds = ["npm run build"]
-
-[start]
-cmd = "node dist/index.js"

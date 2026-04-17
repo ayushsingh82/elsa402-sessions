@@ -4,6 +4,10 @@ Dry-run scripts that exercise the full pipeline: [`elsax402-sessions`](https://w
 
 Uses canonical **Circle USDC on Base Sepolia** (`0x036CbD53842c5426634e7929541eC2318f3dCF7e`, 6 decimals) as the payment asset.
 
+**Default facilitator:** `https://elsax402-facilitator-production.up.railway.app`
+
+The `npm run gen` script writes this URL into `.env`. You can override with `FACILITATOR_URL=...` to point at a local instance for offline iteration.
+
 ## Setup
 
 ```bash
@@ -28,10 +32,12 @@ Writes `.env` with `USER_PRIVATE_KEY`, `USER_ADDRESS`, `RECIPIENT_PRIVATE_KEY`, 
 
 Send both to the `USER_ADDRESS` printed by `npm run gen`. The recipient doesn't need funding.
 
-**3. Start the facilitator** (in a separate terminal):
+**3. Facilitator** — by default the scripts hit the live Railway instance at
+`https://elsax402-facilitator-production.up.railway.app`. To run your own locally instead, in a separate terminal:
 
 ```bash
 cd ../x402-session-facilitator && npm run dev
+# then set FACILITATOR_URL=http://localhost:4021 in .env
 ```
 
 **4. (Optional) Check everything is ready:**
@@ -61,7 +67,7 @@ This will:
 
 ```
 ━━━ elsax402-sessions dry-run ━━━
-  facilitator: http://localhost:4021
+  facilitator: https://elsax402-facilitator-production.up.railway.app
   network:     base:sepolia
   user:        0x...
   recipient:   0x...
