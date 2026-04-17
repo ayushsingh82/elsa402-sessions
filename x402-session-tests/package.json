@@ -1,0 +1,21 @@
+{
+  "name": "elsax402-sessions-test",
+  "version": "0.0.0",
+  "private": true,
+  "description": "End-to-end dry-run scripts for elsax402-sessions + facilitator on Base Sepolia (EVM).",
+  "scripts": {
+    "gen": "tsx scripts/generate-user.ts",
+    "dry-run": "tsx scripts/dry-run.ts",
+    "status": "tsx scripts/status.ts"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "elsax402-sessions": "file:../x402-session-sdk",
+    "viem": "^2.21.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22",
+    "tsx": "^4.19.0",
+    "typescript": "^5.5.0"
+  }
+}
