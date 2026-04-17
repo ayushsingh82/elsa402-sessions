@@ -9,9 +9,9 @@ export function Footer() {
           <div className="md:col-span-2">
             <LeLoLogo className="mb-4" />
             <p className="text-white/70 mb-4 max-w-md">
-              <span className="text-white font-medium">x402-sessions</span> is the Stellar session SDK for x402: sign
-              once with USDC approval, then let a facilitator settle many micropayments without per-request wallet
-              prompts.
+              <span className="text-white font-medium">Elsa402-sessions</span> is our session SDK for x402 on Base:
+              sign once with USDC approval, then let a facilitator settle many micropayments without per-request
+              wallet prompts.
             </p>
           </div>
 
@@ -20,7 +20,7 @@ export function Footer() {
             <ul className="space-y-2 text-white/70">
               <li>
                 <a
-                  href="https://github.com/x402-sessions"
+                  href="https://github.com/ayushsingh82/elsa402-sessions"
                   className="hover:text-white transition-colors"
                   target="_blank"
                   rel="noopener noreferrer"
@@ -30,7 +30,7 @@ export function Footer() {
               </li>
               <li>
                 <a
-                  href="https://www.npmjs.com/package/x402-sessions"
+                  href="https://www.npmjs.com/package/elsa-x402-sessions"
                   className="hover:text-white transition-colors"
                   target="_blank"
                   rel="noopener noreferrer"
@@ -38,11 +38,23 @@ export function Footer() {
                   npm package
                 </a>
               </li>
+              <li>
+                <a
+                  href="https://youtu.be/R0cGCaiPG0E?si=lInV_cLQfCtupykt"
+                  className="hover:text-white transition-colors"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  YouTube demo
+                </a>
+              </li>
             </ul>
           </div>
         </div>
 
-       
+        <div className="mt-10 pt-6 border-t border-white/10 text-sm text-white/50">
+          Built on Elsa by Elsa402-sessions.
+        </div>
       </div>
     </footer>
   )

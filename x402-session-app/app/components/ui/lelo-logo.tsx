@@ -9,7 +9,7 @@ export function LeLoLogo({ className = "" }: { className?: string }) {
         </div>
         <div className="absolute -top-1 -right-1 w-3 h-3 bg-accent rounded-full"></div>
       </div>
-      <span className="text-xl font-bold text-foreground">x402-sessions</span>
+      <span className="text-xl font-bold text-foreground">Elsa402-sessions</span>
     </div>
   )
 }

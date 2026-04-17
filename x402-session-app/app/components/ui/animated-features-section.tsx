@@ -15,7 +15,7 @@ const features = [
     icon: MessageSquare,
     title: "Chat-based sessions",
     description:
-      "Authorize USDC once; every message or tool call debits the session off-chain and on-chain via the facilitator—no per-message Freighter popups.",
+      "Authorize USDC once; every message or tool call debits the session off-chain and on-chain via the facilitator with no repeated wallet popups.",
   },
   {
     icon: Cpu,
@@ -27,7 +27,7 @@ const features = [
     icon: Coins,
     title: "Micropayments at scale",
     description:
-      "Soroban SAC approvals bound total spend; the facilitator enforces per-call limits and recipient binding for many small settlements.",
+      "ERC20 approvals bound total spend; the facilitator enforces per-call limits and recipient binding for many small settlements.",
   },
   {
     icon: Route,
@@ -65,7 +65,7 @@ export function AnimatedFeaturesSection() {
             transition={{ duration: 0.6, delay: 0.2 }}
             viewport={{ once: true }}
           >
-            Applications you can build when payments are a session, not a popup—games, chat, and AI on Stellar.
+            Applications you can build when payments are a session, not a popup - games, chat, and AI on Base.
           </motion.p>
         </div>
 

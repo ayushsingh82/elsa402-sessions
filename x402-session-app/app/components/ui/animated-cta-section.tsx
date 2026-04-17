@@ -54,18 +54,39 @@ export function AnimatedCTASection() {
             className="text-xl text-white/90 mb-8 max-w-2xl mx-auto drop-shadow-md animate-fade-in-up"
             style={{ animationDelay: "0.7s" }}
           >
-            Use `x402-sessions` as your base and gate premium routes with Stellar payments in minutes.
+            Use `Elsa402-sessions` as your base and gate premium routes with Base payments in minutes.
           </p>
           <div
             className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in-up"
             style={{ animationDelay: "0.9s" }}
           >
-            <Button size="lg" className="bg-white text-black hover:bg-white/90 group">
+            <Button
+              size="lg"
+              className="bg-white text-black hover:bg-white/90 group"
+              onClick={() =>
+                window.open(
+                  "https://www.npmjs.com/package/elsa-x402-sessions",
+                  "_blank",
+                  "noopener,noreferrer",
+                )
+              }
+            >
               npm package
               <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
             </Button>
-            <Button size="lg" variant="outline" className="border-white text-white hover:bg-white/10 bg-transparent">
-              Build with x402
+            <Button
+              size="lg"
+              variant="outline"
+              className="border-white text-white hover:bg-white/10 bg-transparent"
+              onClick={() =>
+                window.open(
+                  "https://youtu.be/R0cGCaiPG0E?si=lInV_cLQfCtupykt",
+                  "_blank",
+                  "noopener,noreferrer",
+                )
+              }
+            >
+              Watch demo
             </Button>
           </div>
         </div>

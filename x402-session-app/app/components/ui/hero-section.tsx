@@ -11,13 +11,13 @@ export function HeroSection() {
   return (
     <section className="py-20 px-4 relative overflow-hidden min-h-screen flex flex-col justify-between">
       <div className="flex-1 flex items-start justify-center pt-36">
-        <ParticleTextEffect words={[ "STELLAR", "X402", "Sessions"]} />
+        <ParticleTextEffect words={["ELSA402", "X402", "Sessions"]} />
       </div>
 
       <div className="container mx-auto text-center relative z-10 pb-8">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-2xl md:text-3xl font-bold text-white mb-6 text-balance">
-            Build and ship <span className="text-gray-300">x402-powered dapps on Stellar</span>. 
+            Build and ship <span className="text-gray-300">x402-session powered dapps using Elsa capabilities</span>.
             Now featuring <span className="text-primary">Sign once, settle many times</span>.
           </h2>
           
@@ -27,7 +27,7 @@ export function HeroSection() {
               className="bg-white hover:bg-gray-200 text-black group"
               onClick={() =>
                 window.open(
-                  "https://www.youtube.com/watch?v=kbwVi9IpOy8",
+                  "https://youtu.be/R0cGCaiPG0E?si=lInV_cLQfCtupykt",
                   "_blank",
                   "noopener,noreferrer"
                 )
@@ -43,13 +43,13 @@ export function HeroSection() {
               className="group border-gray-600 text-white hover:bg-gray-800 bg-transparent"
               onClick={() =>
                 window.open(
-                  "https://www.npmjs.com/package/x402-sessions",
+                  "https://www.npmjs.com/package/elsa-x402-sessions",
                   "_blank",
                   "noopener,noreferrer"
                 )
               }
             >
-             npm-package
+             npm package
               <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
             </Button>
           </div>
