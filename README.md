@@ -1,4 +1,4 @@
-# elsa-x402-sessions
+# Elsa402-sessions  
 
 [![npm](https://img.shields.io/npm/v/elsa-x402-sessions.svg)](https://www.npmjs.com/package/elsa-x402-sessions)
 [![license](https://img.shields.io/npm/l/elsa-x402-sessions.svg)](./x402-session-sdk/LICENSE)

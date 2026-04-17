@@ -6,9 +6,7 @@ import { base, baseSepolia } from "wagmi/chains";
 import { coinbaseWallet, injected } from "wagmi/connectors";
 import { useState } from "react";
 
-const NETWORK = (process.env.NEXT_PUBLIC_NETWORK ?? "base:sepolia") as
-  | "base:sepolia"
-  | "base:mainnet";
+const NETWORK = "base:sepolia" as const;
 
 const chain = NETWORK === "base:mainnet" ? base : baseSepolia;
 const rpcUrl =

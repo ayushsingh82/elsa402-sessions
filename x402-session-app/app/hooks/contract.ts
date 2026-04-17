@@ -2,9 +2,7 @@
 
 // Base / Base Sepolia constants used by client-side code.
 
-export const NETWORK = (process.env.NEXT_PUBLIC_NETWORK ?? "base:sepolia") as
-  | "base:sepolia"
-  | "base:mainnet";
+export const NETWORK = "base:sepolia" as const;
 
 export const CHAIN_ID = NETWORK === "base:mainnet" ? 8453 : 84532;
 

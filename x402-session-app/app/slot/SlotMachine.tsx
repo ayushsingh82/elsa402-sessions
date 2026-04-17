@@ -23,9 +23,8 @@ const USDC_ADDRESS = (process.env.NEXT_PUBLIC_USDC_ADDRESS ??
   "0x036CbD53842c5426634e7929541eC2318f3dCF7e") as `0x${string}`
 const RECIPIENT = (process.env.NEXT_PUBLIC_RECIPIENT_ADDRESS ?? "") as `0x${string}` | ""
 const PER_PULL_USDC = parseFloat(process.env.NEXT_PUBLIC_PER_CALL_USDC ?? "0.10")
-const NETWORK = (process.env.NEXT_PUBLIC_NETWORK ?? "base:sepolia") as
-  | "base:sepolia"
-  | "base:mainnet"
+// Hard-coded to avoid runtime/env mismatch causing "Unsupported network" during session auth.
+const NETWORK = "base:sepolia" as const
 
 const USDC_DECIMALS = 6n
 const ONE_USDC = 10n ** USDC_DECIMALS

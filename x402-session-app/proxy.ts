@@ -5,9 +5,7 @@ import { NextResponse, type NextRequest } from "next/server"
 import { createPaywall } from "./x402/paywall"
 import { evmPaywall } from "./x402/paywall/evm"
 
-const network = (process.env.NETWORK ?? "base:sepolia") as
-  | "base:sepolia"
-  | "base:mainnet"
+const network = "base:sepolia" as const
 
 // USDC contract address. Override with USDC_CONTRACT_ADDRESS env if needed.
 const usdcAddress =
