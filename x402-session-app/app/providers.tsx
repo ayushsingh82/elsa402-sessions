@@ -2,16 +2,12 @@
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { WagmiProvider, createConfig, http } from "wagmi";
-import { base, baseSepolia } from "wagmi/chains";
+import { baseSepolia } from "wagmi/chains";
 import { coinbaseWallet, injected } from "wagmi/connectors";
 import { useState } from "react";
 
-const NETWORK = "base:sepolia" as const;
-
-const chain = NETWORK === "base:mainnet" ? base : baseSepolia;
-const rpcUrl =
-  process.env.NEXT_PUBLIC_BASE_RPC_URL ??
-  (NETWORK === "base:mainnet" ? "https://mainnet.base.org" : "https://sepolia.base.org");
+const chain = baseSepolia;
+const rpcUrl = "https://sepolia.base.org";
 
 const wagmiConfig = createConfig({
   chains: [chain] as const,
