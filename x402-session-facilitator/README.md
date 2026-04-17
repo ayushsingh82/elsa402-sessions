@@ -78,6 +78,42 @@ MAX_PER_CALL=1.00                # decimal; /settle refuses calls above this
 DB_PATH=./sessions.db
 ```
 
+## Deploy to Railway
+
+This package ships with `railway.json` + `nixpacks.toml` so it builds out-of-the-box.
+
+**Dashboard route (recommended):**
+1. https://railway.com/new → **Deploy from GitHub repo** → select `ayushsingh82/elsa402-sessions`
+2. After import, go to the service → **Settings** → set **Root Directory** to `x402-session-facilitator`
+3. Settings → **Networking** → **Generate Domain** (gives you `https://<name>.up.railway.app`)
+4. **Variables** tab — add:
+   - `NETWORK=base:sepolia`
+   - `NETWORK_CAIP=eip155:84532`
+   - `CHAIN_ID=84532`
+   - `BASE_RPC_URL=https://sepolia.base.org`
+   - `FACILITATOR_PRIVATE_KEY=0x...` (must be a Base Sepolia EOA funded with ETH for gas)
+   - `USDC_CONTRACT_ADDRESS=0x036CbD53842c5426634e7929541eC2318f3dCF7e`
+   - `ASSET_DECIMALS=6`
+   - `MAX_PER_CALL=1.00`
+   - `DB_PATH=/data/sessions.db` (only if you attach a volume; otherwise omit and use ephemeral `./sessions.db`)
+5. (Optional) **Volumes** → add a volume mounted at `/data` to persist the sessions DB across redeploys
+6. Trigger a deploy — Railway will run `npm ci && npm run build` then `node dist/index.js`. Health check polls `/health`
+
+**CLI route:**
+```bash
+npm i -g @railway/cli
+railway login                         # interactive
+cd x402-session-facilitator
+railway link                          # pick or create project
+railway variables --set NETWORK=base:sepolia ...   # repeat per env var
+railway up                            # deploys current directory
+```
+
+After deploy, point your client SDK + Next.js app at the new URL:
+```
+SESSION_FACILITATOR_URL=https://your-service.up.railway.app
+```
+
 ## Storage
 
 `better-sqlite3`, WAL mode. One table: `sessions`. Atomic debit under a sqlite transaction so concurrent `/settle` calls can't double-spend the session.
