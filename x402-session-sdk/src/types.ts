@@ -68,7 +68,7 @@ export type CreateSessionOptions = {
   recipient: Address;
   /**
    * Wallet client used to sign & submit the ERC20 approve transaction.
-   * On Node: build via `walletClientFromPrivateKey()` from "elsax402-sessions/evm".
+   * On Node: build via `walletClientFromPrivateKey()` from "elsa-x402-sessions/evm".
    * In the browser: pass the result of wagmi's `useWalletClient()`.
    */
   walletClient: WalletClient;

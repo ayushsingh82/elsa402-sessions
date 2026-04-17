@@ -1,8 +1,8 @@
 {
-  "name": "elsax402-sessions-test",
+  "name": "elsa-x402-sessions-test",
   "version": "0.0.0",
   "private": true,
-  "description": "End-to-end dry-run scripts for elsax402-sessions + facilitator on Base Sepolia (EVM).",
+  "description": "End-to-end dry-run scripts for elsa-x402-sessions + facilitator on Base Sepolia (EVM).",
   "scripts": {
     "gen": "tsx scripts/generate-user.ts",
     "dry-run": "tsx scripts/dry-run.ts",

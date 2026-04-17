@@ -37,7 +37,7 @@ app.use((err: Error, _req: express.Request, res: express.Response, _next: expres
 
 app.listen(config.port, () => {
   console.log(
-    `[elsax402-sessions facilitator] listening on :${config.port}\n` +
+    `[elsa-x402-sessions facilitator] listening on :${config.port}\n` +
       `  network:     ${config.network}  (${config.networkCaip}, chainId=${config.chainId})\n` +
       `  rpc:         ${config.rpcUrl}\n` +
       `  address:     ${facilitatorAddress}\n` +

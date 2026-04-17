@@ -1,4 +1,4 @@
-// Full end-to-end dry-run of elsax402-sessions + facilitator on Base Sepolia.
+// Full end-to-end dry-run of elsa-x402-sessions + facilitator on Base Sepolia.
 //
 // Uses USER_PRIVATE_KEY from .env and canonical Circle USDC on Base Sepolia.
 //
@@ -54,7 +54,7 @@ async function main() {
   const publicClient = makePublicClient(NETWORK);
   const userAddress = walletClient.account!.address as Address;
 
-  console.log("━━━ elsax402-sessions dry-run ━━━");
+  console.log("━━━ elsa-x402-sessions dry-run ━━━");
   console.log(`  facilitator: ${FACILITATOR_URL}`);
   console.log(`  network:     ${NETWORK}`);
   console.log(`  user:        ${userAddress}`);

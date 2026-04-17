@@ -1,4 +1,4 @@
-// elsax402-sessions
+// elsa-x402-sessions
 // Sign once, settle many times — session-based x402 payments on Base (EVM).
 
 export { createSession, wrapFetch } from "./client";

@@ -1,12 +1,12 @@
-# elsax402-sessions facilitator
+# elsa-x402-sessions facilitator
 
-Reference HTTP facilitator for the `session` scheme on Base / Base Sepolia (EVM). Companion to the [`elsax402-sessions`](../x402-session-sdk) SDK.
+Reference HTTP facilitator for the `session` scheme on Base / Base Sepolia (EVM). Companion to the [`elsa-x402-sessions`](../x402-session-sdk) SDK.
 
 Implements the x402 facilitator API (`GET /supported`, `POST /verify`, `POST /settle`) plus a session-management extension (`POST /sessions`, `GET /sessions/:id`) and performs on-chain ERC20 `transferFrom` calls.
 
 ## How it works
 
-1. Client (via the [`elsax402-sessions`](../x402-session-sdk) SDK) signs & submits ERC20 `approve(facilitator, cap)` on-chain.
+1. Client (via the [`elsa-x402-sessions`](../x402-session-sdk) SDK) signs & submits ERC20 `approve(facilitator, cap)` on-chain.
 2. Client `POST`s the tx hash to `/sessions`. Facilitator decodes the tx, verifies it is `approve(spender=facilitator, value>=cap)` against the expected ERC20 contract, also reads live `allowance()` as a defense-in-depth check, stores a session record in sqlite, returns a `sessionId`.
 3. Client attaches `sessionId` to subsequent `PAYMENT-SIGNATURE` headers on protected requests.
 4. Resource server's x402 middleware calls `/verify` and `/settle`. Facilitator checks the session (cap, expiry, recipient, per-call limit), atomically debits sqlite, then executes ERC20 `transferFrom(user, recipient, amount)`.
@@ -128,5 +128,5 @@ SESSION_FACILITATOR_URL=https://your-service.up.railway.app
 ## References
 
 - USDC on Base Sepolia: `0x036CbD53842c5426634e7929541eC2318f3dCF7e` ([BaseScan](https://sepolia.basescan.org/address/0x036cbd53842c5426634e7929541ec2318f3dcf7e))
-- Companion SDK: [`elsax402-sessions`](../x402-session-sdk)
+- Companion SDK: [`elsa-x402-sessions`](../x402-session-sdk)
 - x402 protocol: https://x402.org

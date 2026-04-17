@@ -1,6 +1,6 @@
-# elsax402-sessions end-to-end tests
+# elsa-x402-sessions end-to-end tests
 
-Dry-run scripts that exercise the full pipeline: [`elsax402-sessions`](https://www.npmjs.com/package/elsax402-sessions) SDK → facilitator HTTP API → on-chain ERC20 `approve` + `transferFrom` on **Base Sepolia**.
+Dry-run scripts that exercise the full pipeline: [`elsa-x402-sessions`](https://www.npmjs.com/package/elsa-x402-sessions) SDK → facilitator HTTP API → on-chain ERC20 `approve` + `transferFrom` on **Base Sepolia**.
 
 Uses canonical **Circle USDC on Base Sepolia** (`0x036CbD53842c5426634e7929541eC2318f3dCF7e`, 6 decimals) as the payment asset.
 
@@ -56,7 +56,7 @@ npm run dry-run
 
 This will:
 
-1. Call `createSession(...)` from the [`elsax402-sessions`](https://www.npmjs.com/package/elsax402-sessions) SDK. That signs & submits an on-chain ERC20 `approve(facilitator, 10 USDC)` transaction, then registers the session with the facilitator via `POST /sessions`.
+1. Call `createSession(...)` from the [`elsa-x402-sessions`](https://www.npmjs.com/package/elsa-x402-sessions) SDK. That signs & submits an on-chain ERC20 `approve(facilitator, 10 USDC)` transaction, then registers the session with the facilitator via `POST /sessions`.
 2. Call `POST /settle` on the facilitator three times in a row with `amount = 500000` (0.5 USDC at 6 decimals). Each call:
    - Re-verifies the session in the facilitator (cap, expiry, recipient, per-call limit)
    - Debits the session in sqlite atomically
@@ -66,7 +66,7 @@ This will:
 ### Expected output (success)
 
 ```
-━━━ elsax402-sessions dry-run ━━━
+━━━ elsa-x402-sessions dry-run ━━━
   facilitator: https://elsax402-facilitator-production.up.railway.app
   network:     base:sepolia
   user:        0x...

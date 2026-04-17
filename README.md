@@ -1,4 +1,4 @@
-# elsax402-sessions
+# elsa-x402-sessions
 
 [![npm](https://img.shields.io/npm/v/elsa-x402-sessions.svg)](https://www.npmjs.com/package/elsa-x402-sessions)
 [![license](https://img.shields.io/npm/l/elsa-x402-sessions.svg)](./x402-session-sdk/LICENSE)
@@ -8,7 +8,7 @@
 A complete session-based x402 stack: a TypeScript SDK, a hosted facilitator, a demo Next.js app, and end-to-end test scripts. Powered by canonical Circle USDC on Base Sepolia and viem.
 
 > Classic x402 = 1 request, 1 EIP-3009 signature, 1 settlement.
-> **elsax402-sessions = 1 ERC20 `approve`, N settlements.**
+> **elsa-x402-sessions = 1 ERC20 `approve`, N settlements.**
 
 ## Live deployments
 
@@ -98,9 +98,9 @@ Any request to `/api/inference` without a session payload gets a 402. With a val
 | Path | Package | Purpose |
 |---|---|---|
 | [`x402-session-sdk/`](./x402-session-sdk) | [`elsa-x402-sessions`](https://www.npmjs.com/package/elsa-x402-sessions) | Client SDK (`createSession`, `wrapFetch`) + resource-server scheme plugin (`SessionEvmScheme`) |
-| [`x402-session-facilitator/`](./x402-session-facilitator) | `elsax402-sessions-facilitator` | Express + SQLite + viem. Endpoints: `/verify`, `/settle`, `/sessions`, `/supported`. Deployed on Railway. |
+| [`x402-session-facilitator/`](./x402-session-facilitator) | `elsa-x402-sessions-facilitator` | Express + SQLite + viem. Endpoints: `/verify`, `/settle`, `/sessions`, `/supported`. Deployed on Railway. |
 | [`x402-session-app/`](./x402-session-app) | `elsax402-app` | Next.js 16 demo: slot machine + AI chat, both x402-protected (wagmi + viem wallet) |
-| [`x402-session-tests/`](./x402-session-tests) | `elsax402-sessions-test` | tsx scripts: `gen` (keypairs), `dry-run` (full e2e), `status` (balances) |
+| [`x402-session-tests/`](./x402-session-tests) | `elsa-x402-sessions-test` | tsx scripts: `gen` (keypairs), `dry-run` (full e2e), `status` (balances) |
 
 ## How the session model works
 

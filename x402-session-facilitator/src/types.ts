@@ -1,4 +1,4 @@
-// Wire-format types for the elsax402-sessions facilitator.
+// Wire-format types for the elsa-x402-sessions facilitator.
 //
 // Scheme: "session"  (new scheme we register alongside x402's "exact" scheme)
 // Network: "base:sepolia" | "base:mainnet" (also CAIP-2 "eip155:84532" / "eip155:8453" aliases)

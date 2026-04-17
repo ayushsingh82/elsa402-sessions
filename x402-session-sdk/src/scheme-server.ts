@@ -41,7 +41,7 @@ function decimalToBaseUnits(amount: string | number, decimals: number): string {
  *
  * Usage (in your proxy.ts):
  *
- *   import { SessionEvmScheme } from "elsax402-sessions/scheme";
+ *   import { SessionEvmScheme } from "elsa-x402-sessions/scheme";
  *
  *   const server = new x402ResourceServer(facilitatorClient)
  *     .register("base:sepolia", new SessionEvmScheme({

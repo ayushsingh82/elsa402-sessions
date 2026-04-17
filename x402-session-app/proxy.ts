@@ -16,7 +16,7 @@ const usdcAddress =
     ? "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913"
     : "0x036CbD53842c5426634e7929541eC2318f3dCF7e")
 
-// Session facilitator (our local elsax402-sessions service).
+// Session facilitator (our local elsa-x402-sessions service).
 const sessionFacilitatorUrl =
   process.env.SESSION_FACILITATOR_URL ?? "http://localhost:4021"
 

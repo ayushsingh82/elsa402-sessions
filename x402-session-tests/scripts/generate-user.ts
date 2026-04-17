@@ -19,7 +19,7 @@ const BASE_RPC_URL = "https://sepolia.base.org";
 const USDC_ADDRESS = "0x036CbD53842c5426634e7929541eC2318f3dCF7e";
 
 async function main() {
-  console.log("━━━ elsax402-sessions test setup ━━━\n");
+  console.log("━━━ elsa-x402-sessions test setup ━━━\n");
 
   // ── 1. Generate keypairs ─────────────────────────────────────────
   console.log("[1/2] Generating keypairs...");

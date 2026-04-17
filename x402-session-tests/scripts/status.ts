@@ -38,7 +38,7 @@ function row(label: string, address: string, eth: string, usdc: string) {
 }
 
 async function main() {
-  console.log("━━━ elsax402-sessions environment status ━━━\n");
+  console.log("━━━ elsa-x402-sessions environment status ━━━\n");
 
   // Facilitator
   let facilitatorAddress: Address | undefined;

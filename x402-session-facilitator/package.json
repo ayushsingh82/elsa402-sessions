@@ -1,5 +1,5 @@
 {
-  "name": "elsax402-sessions-facilitator",
+  "name": "elsa-x402-sessions-facilitator",
   "version": "0.1.0",
   "description": "Reference x402 facilitator service implementing the `session` scheme for Base / Base Sepolia (ERC20 approve + transferFrom). Self-host or use as a template.",
   "license": "MIT",
