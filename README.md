@@ -1,8 +1,11 @@
 # elsax402-sessions
 
+[![npm](https://img.shields.io/npm/v/@devshubham/sessions.svg)](https://www.npmjs.com/package/@devshubham/sessions)
+[![license](https://img.shields.io/npm/l/@devshubham/sessions.svg)](./x402-session-sdk/LICENSE)
+
 **Sign once, settle many times -- session-based x402 payments on Base Sepolia (USDC).**
 
-A monorepo containing a complete session-based x402 stack: a TypeScript SDK, a self-hosted facilitator, a demo Next.js app, and end-to-end test scripts. Powered by canonical Circle USDC on Base Sepolia and viem.
+A complete session-based x402 stack: a TypeScript SDK, a hosted facilitator, a demo Next.js app, and end-to-end test scripts. Powered by canonical Circle USDC on Base Sepolia and viem.
 
 > Classic x402 = 1 request, 1 EIP-3009 signature, 1 settlement.
 > **elsax402-sessions = 1 ERC20 `approve`, N settlements.**
@@ -11,33 +14,91 @@ A monorepo containing a complete session-based x402 stack: a TypeScript SDK, a s
 
 | What | URL |
 |---|---|
-| Facilitator (Railway, Base Sepolia) | https://elsax402-facilitator-production.up.railway.app |
-| SDK (npm) | [`@devshubham/sessions`](https://www.npmjs.com/package/@devshubham/sessions) |
+| **SDK on npm** | [`@devshubham/sessions`](https://www.npmjs.com/package/@devshubham/sessions) |
+| **Hosted facilitator** | https://elsax402-facilitator-production.up.railway.app |
+| **GitHub** | https://github.com/ayushsingh82/elsa402-sessions |
 
-Point your client at the facilitator out of the box -- no need to self-host for testing.
+Both are live on **Base Sepolia (chainId 84532)** with Circle USDC at `0x036CbD53842c5426634e7929541eC2318f3dCF7e`. Use the SDK + hosted facilitator with zero infrastructure.
+
+## Try it in 60 seconds
+
+```bash
+npm install @devshubham/sessions viem
+```
 
 ```ts
-import { createSession, USDC_BASE_SEPOLIA } from "@devshubham/sessions";
+import { createSession, walletClientFromPrivateKey, USDC_BASE_SEPOLIA } from "@devshubham/sessions";
+
+const walletClient = await walletClientFromPrivateKey(
+  process.env.USER_PRIVATE_KEY as `0x${string}`,
+  "base:sepolia",
+);
 
 const session = await createSession({
   walletClient,
   facilitatorUrl: "https://elsax402-facilitator-production.up.railway.app",
   network: "base:sepolia",
   asset: USDC_BASE_SEPOLIA,
-  spendingCap: "1.00",
-  expiresIn: 3600,
+  spendingCap: "1.00",        // 1 USDC total budget
+  expiresIn: 3600,            // 1 hour
   recipient: "0xYourResourceServerWallet",
 });
 
-await session.fetch("/api/inference"); // settles $0.10 on-chain via transferFrom
+// Each call settles $0.10 on-chain via ERC20 transferFrom -- no popup, no resign.
+for (let i = 0; i < 10; i++) {
+  const res = await session.fetch("https://your-x402-protected-api.example/inference");
+  console.log(await res.json());
+}
 ```
 
-## Packages
+The user EOA must hold Base Sepolia ETH (gas) and USDC. Faucets:
+
+- ETH: https://www.alchemy.com/faucets/base-sepolia
+- USDC: https://faucet.circle.com (select Base Sepolia)
+
+## Resource-server side (`@x402/next`)
+
+```ts
+import { paymentProxy, x402ResourceServer } from "@x402/next";
+import { HTTPFacilitatorClient } from "@x402/core/server";
+import { SessionEvmScheme, USDC_BASE_SEPOLIA } from "@devshubham/sessions";
+
+const facilitator = new HTTPFacilitatorClient({
+  url: "https://elsax402-facilitator-production.up.railway.app",
+});
+
+const server = new x402ResourceServer(facilitator).register(
+  "base:sepolia",
+  new SessionEvmScheme({
+    assetAddress: USDC_BASE_SEPOLIA,
+    facilitatorUrl: "https://elsax402-facilitator-production.up.railway.app",
+  }),
+);
+
+export const handler = paymentProxy(
+  {
+    "/api/inference": {
+      accepts: [{
+        scheme: "session" as const,
+        price: "0.10",
+        network: "base:sepolia",
+        payTo: process.env.SERVER_WALLET_ADDRESS!,
+      }],
+      description: "AI inference, settled per request via session",
+    },
+  },
+  server,
+);
+```
+
+Any request to `/api/inference` without a session payload gets a 402. With a valid `sessionId`, it passes through and `$0.10` settles on-chain via `transferFrom`.
+
+## Packages in this repo
 
 | Path | Package | Purpose |
 |---|---|---|
-| [`x402-session-sdk/`](./x402-session-sdk) | [`@devshubham/sessions`](https://www.npmjs.com/package/@devshubham/sessions) | TypeScript SDK -- `createSession`, `wrapFetch`, `SessionEvmScheme` |
-| [`x402-session-facilitator/`](./x402-session-facilitator) | `elsax402-sessions-facilitator` | Express + SQLite + viem facilitator: `/verify`, `/settle`, `/sessions`, `/supported` |
+| [`x402-session-sdk/`](./x402-session-sdk) | [`@devshubham/sessions`](https://www.npmjs.com/package/@devshubham/sessions) | Client SDK (`createSession`, `wrapFetch`) + resource-server scheme plugin (`SessionEvmScheme`) |
+| [`x402-session-facilitator/`](./x402-session-facilitator) | `elsax402-sessions-facilitator` | Express + SQLite + viem. Endpoints: `/verify`, `/settle`, `/sessions`, `/supported`. Deployed on Railway. |
 | [`x402-session-app/`](./x402-session-app) | `elsax402-app` | Next.js 16 demo: slot machine + AI chat, both x402-protected (wagmi + viem wallet) |
 | [`x402-session-tests/`](./x402-session-tests) | `elsax402-sessions-test` | tsx scripts: `gen` (keypairs), `dry-run` (full e2e), `status` (balances) |
 
@@ -76,43 +137,38 @@ await session.fetch("/api/inference"); // settles $0.10 on-chain via transferFro
 6. Facilitator runs `transferFrom(user, recipient, amount)` on-chain. The token contract enforces the allowance.
 7. Response flows back to the user. `spent` counter atomically decrements remaining cap.
 
-## Install the SDK
+## Run the full local stack
 
 ```bash
-npm install @devshubham/sessions viem
-# resource-server side (optional):
-npm install @x402/core @x402/next
-```
+git clone https://github.com/ayushsingh82/elsa402-sessions.git
+cd elsa402-sessions
 
-Peer deps: `viem ^2.21`, `@x402/core ^2.8.0` (optional, only if you use the server-side scheme plugin).
-
-## Quickstart (full local stack)
-
-```bash
-# 1. Build the SDK
+# 1. SDK -- only needed if you want a local-link build instead of the npm release
 cd x402-session-sdk && npm install && npm run build && cd ..
 
-# 2. Generate user + recipient EOAs
-cd x402-session-tests && npm install && npm run gen && cd ..
-# fund USER_ADDRESS at https://www.alchemy.com/faucets/base-sepolia + https://faucet.circle.com
-
-# 3a. Use the live facilitator (default in .env after `npm run gen`):
-#     FACILITATOR_URL=https://elsax402-facilitator-production.up.railway.app
-#
-# 3b. OR run your own facilitator locally:
-cd x402-session-facilitator && npm install
-cp .env.example .env  # set FACILITATOR_PRIVATE_KEY (also fund the address with Base Sepolia ETH)
-npm run build && npm start &
+# 2. Generate user + recipient EOAs (writes .env)
+cd x402-session-tests && npm install && npm run gen
+# Fund USER_ADDRESS via Alchemy + Circle faucets (see "Try it in 60 seconds" above)
 cd ..
 
-# 4. Run the e2e dry-run
+# 3. Run the e2e dry-run against the hosted facilitator
 cd x402-session-tests && npm run dry-run
 
-# 5. (Optional) Run the demo Next.js app
+# 4. (Optional) Demo Next.js app
 cd ../x402-session-app && npm install
-cp .env.example .env.local  # set NEXT_PUBLIC_RECIPIENT_ADDRESS
-npm run dev  # http://localhost:3000/slot
+cp .env.example .env.local   # set NEXT_PUBLIC_RECIPIENT_ADDRESS
+npm run dev                  # http://localhost:3000/slot
 ```
+
+To self-host the facilitator instead of using the Railway URL:
+
+```bash
+cd x402-session-facilitator && npm install
+cp .env.example .env         # set FACILITATOR_PRIVATE_KEY (fund with Base Sepolia ETH)
+npm run build && npm start   # listens on :4021
+```
+
+Then point your client at `http://localhost:4021`.
 
 ## Network defaults
 
@@ -123,10 +179,9 @@ npm run dev  # http://localhost:3000/slot
 | RPC | `https://sepolia.base.org` |
 | USDC | `0x036CbD53842c5426634e7929541eC2318f3dCF7e` (Circle, 6 decimals) |
 | Explorer | https://sepolia.basescan.org |
-| ETH faucet | https://www.alchemy.com/faucets/base-sepolia |
-| USDC faucet | https://faucet.circle.com |
+| Hosted facilitator | https://elsax402-facilitator-production.up.railway.app |
 
-Mainnet works too -- set `NETWORK=base:mainnet` (USDC `0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913`).
+Mainnet works too -- set `NETWORK=base:mainnet`, USDC = `0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913`. (Hosted facilitator is testnet-only; spin up your own for mainnet.)
 
 ## Trust model
 
@@ -139,6 +194,19 @@ Mainnet works too -- set `NETWORK=base:mainnet` (USDC `0x833589fCD6eDb6E08f4c7C3
 | **Unused balance** | Funds never escrowed -- they stay in the user's wallet | **Native** |
 
 The user can revoke at any time by calling `approve(spender, 0)` themselves.
+
+## Wire format (session scheme)
+
+- **Scheme:** `"session"`
+- **Network:** `"base:sepolia"` | `"base:mainnet"` (also CAIP-2 `"eip155:84532"` / `"eip155:8453"`)
+- **`PaymentPayload.payload`:** `{ sessionId: string }`
+- **Facilitator HTTP API:**
+  - `GET /supported` -- standard x402
+  - `POST /verify` -- standard x402
+  - `POST /settle` -- standard x402
+  - `POST /sessions` -- new: register a session from a signed approval tx hash
+  - `GET /sessions/:id` -- new: inspect remaining cap / spent / expiry
+  - `GET /health` -- liveness
 
 ## License
 
